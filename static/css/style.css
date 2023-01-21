@@ -1,0 +1,46 @@
+.zdog-canvas {
+  background: #FDB;
+  cursor: move;
+  border-radius: 10px;
+}
+
+#right-click-menu{
+  position: absolute;
+  background-color: rgba(36, 36, 36, 0.767);
+  backdrop-filter: blur(10px);
+  color: white;
+  padding: 0px;
+  border-radius: 5px;
+}
+
+#right-click-menu > li {
+  margin: 5px 0px;
+  padding: 2px;
+}
+#right-click-menu > li:hover {
+  background-color: rgba(127, 255, 212, 0.176);
+  cursor: pointer;
+}
+
+div{
+  padding: 10px;
+}
+
+body{
+  font-family: 'Comfortaa';
+}
+
+hr{
+  width: 100%;
+  height: 1px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #b7d0e2;
+  border: 0 none;
+  margin: 0px;
+}
+
+ul{
+  list-style-type: none;
+  margin: 0px;
+}
