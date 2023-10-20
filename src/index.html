@@ -1,0 +1,133 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Studio</title>
+
+        <meta name="description" content="Edits Zdog Scenes">
+        <meta name="keywords" content="Zdog Editor">
+
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link href='https://fonts.googleapis.com/css?family=Comfortaa' rel='stylesheet'>
+        <link rel="stylesheet" href="static/css/icons.css">
+        <link rel="stylesheet" href="static/css/root.css">
+        <link rel="stylesheet" href="static/css/menu.css">
+    </head>
+    <body>
+
+        <header>
+            <div class="left-wrapper">
+                <span class="material-icons md-48 pointer">menu</span>
+                <h1>Zdog Studio</h1>
+            </div>
+            <div class="right-wrapper">
+                <div class="options pointer">
+                    <label class="pointer">Add</label>
+                    <span class="material-icons md-24">category</span>
+                </div>
+                <div class="options pointer">
+                    <label class="pointer">Layers</label>
+                    <span class="material-icons md-24">layers</span>
+                </div>
+                <div class="options pointer">
+                    <label class="pointer">Color</label>
+                    <span class="material-icons md-24">palette</span>
+                </div>
+            </div>
+        </header>
+
+        <canvas class="zdog-canvas"></canvas>
+
+        <!-- TODO
+        <div class="footer">
+            x: 0  y: 0  z: 0
+        </div>
+        -->
+
+        <div class="context-menu" id="right-click-menu-new-objects" hidden>
+            <label>Add Object</label>
+            <ul class="nobullets">
+                <hr>
+                <li value="Anchor">
+                    <span class="material-symbols-outlined">
+                        point_scan
+                    </span>
+                    Anchor
+                </li>
+                <li value="Sphere">
+                    <span class="material-symbols-outlined">
+                        circle
+                    </span>
+                    Sphere
+                </li>
+                <li value="Hemisphere">
+                    <span class="material-symbols-outlined">
+                        circle
+                    </span>
+                    Hemisphere
+                </li>
+                <li value="Ellipse">
+                    <span class="material-symbols-outlined">
+                        circle
+                    </span>
+                    Ellipse
+                </li>
+                <li value="Rect">
+                    <span class="material-symbols-outlined">
+                        rectangle
+                    </span>
+                    Rect
+                </li>
+                <li value="RoundedRect">
+                    <span class="material-symbols-outlined">
+                        rectangle
+                    </span>
+                    RoundedRect
+                </li>
+                <li value="Polygon">
+                    <span class="material-symbols-outlined">
+                        pentagon
+                    </span>
+                    Polygon
+                </li>
+                <li value="Cone">
+                    <span class="material-symbols-outlined">
+                        change_history
+                    </span>
+                    Cone
+                </li>
+                <li value="Cylinder">
+                    <span class="material-symbols-outlined">
+                        circle
+                    </span>
+                    Cylinder
+                </li>
+                <li value="Box">
+                    <span class="material-symbols-outlined">
+                        deployed_code
+                    </span>
+                    Box
+                </li>
+                <li value="Text">
+                    <span class="material-symbols-outlined">
+                        text_fields
+                    </span>
+                    Text
+                </li>
+            </ul>
+        </div>
+        
+        <script src="https://cdn.jsdelivr.net/npm/@jaames/iro@5"></script>
+        <script src="https://unpkg.com/zdog@1/dist/zdog.dist.min.js"></script>
+
+        <script src="static/js/Zdog/Defaults.js"></script>
+        <script src="static/js/Zdog/Cursor.js"></script>
+        <script src="static/js/Zdog/Element.js"></script>
+        <script src="static/js/Zdog/Collection.js"></script>
+        <script src="static/js/Zdog/View.js"></script>
+
+        <script src="static/js/index.js"></script>
+        <script src="static/js/UI/Canvas.js"></script>
+        <script src="static/js/UI/ContextMenu.js"></script>
+    </body>
+</html>

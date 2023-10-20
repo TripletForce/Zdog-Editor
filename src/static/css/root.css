@@ -1,0 +1,76 @@
+:root {
+    --main-bg-color: #252422;
+    --sub-bg-color: #403D39;
+    --cream-color: #CCC5B9;
+    --light-color: #FFFCF2;
+    --accent-color: #EB5E28;
+    --menu-color: #242424c4;
+    --editor-bg-color: #FDB;
+    --highlight-color: #2524222d;
+
+    --bg-gradient: linear-gradient(90deg, rgba(180,58,169,1) 0%, rgba(253,29,101,1) 23%, rgba(252,176,69,1) 100%);
+
+    --border-radius: 5px;
+    --menu-column-size: 40rem;
+}
+
+body {
+    font-family: 'Comfortaa';
+    color: var(--light-color);
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    flex-flow: column;
+    overflow: hidden;
+}
+
+canvas {
+    background-color: var(--cream-color);
+}
+
+header {
+    background-color: var(--main-bg-color);
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+}
+
+h1 {
+    margin: 0.75rem;
+}
+
+/* || UTILITIES */
+.pointer{
+    cursor: pointer;
+}
+
+.left-wrapper, .right-wrapper {
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+}
+
+.right-wrapper {
+    position: absolute;
+    right: 0;
+    margin: 0.5rem;
+}
+
+.options {
+    cursor: pointer;
+    padding: 0.25rem;
+    margin: 0.25rem;
+    border-radius: var(--border-radius);
+}
+
+.options:hover {
+    background-color: var(--accent-color);
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    background-color: var(--main-bg-color);
+    width: 100vw;
+    padding: 0.25rem;
+}

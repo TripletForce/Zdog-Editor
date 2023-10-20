@@ -24,6 +24,14 @@
     font-feature-settings: 'liga';
 }
 
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 48
+}
+
 /* Styling Google Icons */
 .material-icons.md-18 { font-size: 18px; }
 .material-icons.md-24 { font-size: 24px; }
@@ -53,15 +61,4 @@
 
 .no_opacity{
     opacity: 0;
-}
-
-/* Transition Toggle Elements */
-.transition{
-    transition: 0.4s;
-}
-.transition.t-1{
-    position: absolute;
-}
-.transition.t-2{
-    position: relative;
 }

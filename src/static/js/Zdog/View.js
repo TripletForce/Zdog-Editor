@@ -1,5 +1,13 @@
+/**View.js
+ * Author: Kael Pavlik
+ * 
+ * This class exends a collection of ZdogElements and adds
+ * UI events to manipulate the elements. This class uses a
+ * state machine to handle UI events.
+ */
+class View extends Collection {
 
-class ZdogView extends ZdogCollection {
+
     //Initializes the illustration element and state machine
     constructor(canvas){
         let illo = new Zdog.Illustration({
@@ -15,12 +23,9 @@ class ZdogView extends ZdogCollection {
     }
 
     //________________________________State Machine________________________________//
-    //This function uses event listners to 
-    //automatically advance to the next state.
-    //After the state is changed, executeState
-    //is called. The function executeState will
-    //perform an action an can automatically 
-    //advance to the next state if needed.
+    //This function uses event listners to automatically advance to the next state.
+    //After the state is changed, executeState is called. The function executeState will
+    //perform an action an can automatically advance to the next state if needed.
     changeStateEventListners(illo){
         
         this.state = 'ready';
@@ -30,12 +35,13 @@ class ZdogView extends ZdogCollection {
         this.origionalPointer;
         this.origionalViewRotation;
         this.origionalObjTranform;
+        this.selectedElement;
 
         new Zdog.Dragger({
             startElement: illo.element,
             onDragStart: pointer => {
                 if(this.state == 'ready' && pointer.buttons == 1) this.state = 'mouseDown';
-                if(this.state == 'ready' && pointer.buttons == 4 && this.selected) this.state = 'beginTransformObj';
+                if(this.state == 'ready' && pointer.buttons == 4 && this.selectedElement) this.state = 'beginTransformObj';
                 this.executeState( pointer );
             },
             onDragMove: ( pointer, moveX, moveY ) => {
@@ -51,9 +57,7 @@ class ZdogView extends ZdogCollection {
         });
     }
 
-    //This function uses the state to perform 
-    //an action. The args are the same as dragger
-    //args.
+    //This function uses the state to perform an action. The args are the same as dragger args.
     executeState(pointer, moveX, moveY){
         switch(this.state){
 
@@ -73,13 +77,20 @@ class ZdogView extends ZdogCollection {
                 let obj = this.getClickedObject(this.origionalPointer);
                 if(obj != undefined) {
                     obj.OnSelect();
-                    this.selected = obj;
+                    this.selectedElement = obj;
+                }
+                else {
+                    if(this.selectedElement) {
+                        this.selectedElement.selected = false;
+                        this.selectedElement = undefined;
+                    }
+                    this.cursor.hide();
                 }
                 this.state = 'ready';
                 break;
 
             case 'beginTransformObj':
-                this.origionalObjTranform = this.selected.translate;
+                this.origionalObjTranform = this.selectedElement.translate;
                 this.state = 'transformObj';
                 break;
             
@@ -88,22 +99,22 @@ class ZdogView extends ZdogCollection {
                 vert.rotateX(-this.viewRotation.x);
                 vert.rotateY(-this.viewRotation.y);
                 vert.multiply(.25);
-                this.selected.translate = vert.add(this.origionalObjTranform);
+                this.selectedElement.translate = vert.add(this.origionalObjTranform);
                 break;
 
+            case 'deleteObj':
+                console.warn("not implemented");
+                break;
         }
-        scene.update();
+        this.update();
     }
 
-    
+
 
     //________________________________Selecting Object________________________________//
     //Gets the mouse position of a click on a canvas.
-    _getMousePos(evt) {
+    getMousePos(evt) {
         //From: https://codepen.io/gregja/pen/rEGmGB
-        // It's a very reliable algorithm to get mouse coordinates (don't use anything else)
-        // it works fine on Firefox and Chrome
-        // source : https://stackoverflow.com/questions/17130395/real-mouse-position-in-canvas
         let rect = this.illo.element.getBoundingClientRect();
         return {
             x: (evt.clientX - rect.left) / (rect.right - rect.left) * this.illo.element.width,
@@ -111,21 +122,20 @@ class ZdogView extends ZdogCollection {
         };
     }
 
-    //Converts a buffer to a hex value (Color) that 
-    //can be used to id zdog elements.
-    static _buf2hex(buffer) { 
+    //Converts a buffer to a hex value (Color) that can be used to id zdog elements.
+    static buf2hex(buffer) { 
         // buffer is an ArrayBuffer
         return '#' + [...new Uint8Array(buffer)]
             .map(x => x.toString(16).padStart(2, '0'))
             .join('');
     }
 
-    //Gets the color the mouse clicked on in the hex
-    //value.
+    //Gets the color the mouse clicked on in the hex value.
     getMouseClickColor(evt){
-        let pos = this._getMousePos(evt);
+        //From: https://codepen.io/gregja/pen/rEGmGB
+        let pos = this.getMousePos(evt);
         let imageData = this.ctx.getImageData( pos.x, pos.y, 1, 1 );
-        let color = ZdogView._buf2hex(imageData.data);
+        let color = View.buf2hex(imageData.data);
         return color;
     }
 
@@ -136,23 +146,4 @@ class ZdogView extends ZdogCollection {
         this.EditorMode();
         return this.ZdogElements[selectedGhostColor];
     }
-
-
 }
-
-
-
-
-var scene = new ZdogView('.zdog-canvas')
-
-let previous;
-
-function animate() {
-    scene.update();
-    requestAnimationFrame( animate );
-    //if(scene.state != previous){
-    //    console.log(scene.state);
-    //    previous = scene.state;
-    //}
-}
-//animate();
